@@ -1,0 +1,86 @@
+/* Tailwind CSS v4 — imported via @tailwindcss/vite plugin */
+@import "tailwindcss";
+
+/* Note: Inter font loaded via <link> tag in index.html for correct @import order */
+
+/*
+ * DebugDen Design Palette (from design/des.webp)
+ * Primary:   #E29578 — warm coral/salmon
+ * Secondary: #006D77 — deep teal
+ * Tertiary:  #83C5BE — light teal/mint
+ * Neutral:   #EDF6F9 — very light blue-gray
+ */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Brand colors from design palette */
+  --color-primary: #E29578;
+  --color-primary-hover: #d4836a;
+  --color-primary-light: #f5ded4;
+
+  --color-secondary: #006D77;
+  --color-secondary-hover: #005a63;
+  --color-secondary-light: #e0f3f5;
+
+  --color-tertiary: #83C5BE;
+  --color-tertiary-hover: #6fb5ac;
+  --color-tertiary-light: #e8f7f6;
+
+  --color-neutral: #EDF6F9;
+  --color-neutral-dark: #dde9ed;
+
+  /* Semantic colors */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-error: #ef4444;
+  --color-error-light: #fef2f2;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+
+  /* Surface colors */
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f1f5f9;
+
+  /* Text colors */
+  --color-text-primary: #1e293b;
+  --color-text-secondary: #64748b;
+  --color-text-muted: #94a3b8;
+
+  /* Border */
+  --color-border: #e2e8f0;
+  --color-border-light: #f1f5f9;
+}
+
+/* Base styles */
+body {
+  color-scheme: light;
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Scrollbar styling for a polished feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
