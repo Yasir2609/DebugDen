@@ -3,14 +3,14 @@ import crypto from 'crypto';
 
 // Generate an access token (short-lived, sent to client)
 export const generateAccessToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.ACCESS_TOKEN_SECRET, {
+  return jwt.sign({ id: userId, jti: crypto.randomUUID() }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN || '15m',
   });
 };
 
 // Generate a refresh token (long-lived, stored in DB for rotation)
 export const generateRefreshToken = (userId) => {
-  return jwt.sign({ id: userId }, process.env.REFRESH_TOKEN_SECRET, {
+  return jwt.sign({ id: userId, jti: crypto.randomUUID() }, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
   });
 };

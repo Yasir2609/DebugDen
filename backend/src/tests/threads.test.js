@@ -231,8 +231,8 @@ describe('Threads — Full-Text Search', () => {
       { title: 'Node.js Express middleware setup', body: 'Building robust Express apps', author: user._id },
       { title: 'MongoDB aggregation pipeline tutorial', body: 'Advanced query patterns', author: user._id },
     ])
-    // Brief delay to let text indexes update
-    await new Promise((r) => setTimeout(r, 150))
+    // Ensure text index is fully built before querying
+    await Thread.syncIndexes()
   })
 
   it('returns relevant results for a valid query → 200', async () => {

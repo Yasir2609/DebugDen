@@ -10,10 +10,10 @@ export const decodeCursor = (cursor) => {
 
 // Map frontend sort keys to MongoDB sort objects
 const SORT_OPTIONS = {
-  all: { createdAt: -1 },
-  newest: { createdAt: -1 },
-  unanswered: { commentCount: 1 },
-  votes: { voteCount: -1 },
+  all: { createdAt: -1, _id: -1 },
+  newest: { createdAt: -1, _id: -1 },
+  unanswered: { commentCount: 1, _id: -1 },
+  votes: { voteCount: -1, _id: -1 },
 };
 
 // Sort options that require an additional filter (not just a sort key)

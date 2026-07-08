@@ -22,7 +22,7 @@ router.post(
   [
     body('title').trim().notEmpty().withMessage('Title is required').isLength({ max: 200 }),
     body('body').trim().notEmpty().withMessage('Body is required').isLength({ max: 50000 }),
-    body('tags').optional().isArray({ max: 5 }),
+    body('tags').optional().isArray(),
   ],
   validate,
   createThread
