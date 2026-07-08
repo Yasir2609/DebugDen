@@ -2,13 +2,16 @@ import axios from 'axios'
 
 /**
  * Axios client pre-configured for the DebugDen API.
- * - Base URL: /api/v1 (proxied by Vite in development)
+ * - Base URL: {VITE_API_URL}/api/v1 (VITE_API_URL points to Render backend in production,
+ *   falls back to relative '/api/v1' locally so Vite's dev proxy still works)
  * - withCredentials for cookie-based refresh tokens
  * - Request interceptor attaches Bearer token from localStorage
  * - Response interceptor handles 401 with silent refresh attempt
  */
+const BASE_URL = `${import.meta.env.VITE_API_URL || ''}/api/v1`
+
 const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: BASE_URL,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
@@ -70,7 +73,7 @@ api.interceptors.response.use(
 
       try {
         // Call refresh endpoint — sends refresh token via httpOnly cookie
-        const res = await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true })
+        const res = await axios.post(`${BASE_URL}/auth/refresh`, {}, { withCredentials: true })
         const newToken = res.data.accessToken
         localStorage.setItem('accessToken', newToken)
         processQueue(null, newToken)
