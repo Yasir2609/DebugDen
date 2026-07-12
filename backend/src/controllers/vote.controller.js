@@ -35,6 +35,11 @@ export const castVote = catchAsync(async (req, res, next) => {
         throw new AppError('Target not found', 404);
       }
 
+      // Prevent self-voting
+      if (target.author.toString() === req.user._id.toString()) {
+        throw new AppError('You cannot vote on your own content', 403);
+      }
+
       const existingVote = await Vote.findOne({
         user: req.user._id,
         targetId,

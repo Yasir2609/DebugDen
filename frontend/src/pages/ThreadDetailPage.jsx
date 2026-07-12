@@ -256,8 +256,9 @@ export default function ThreadDetailPage() {
         <VoteButtons
           count={thread?.voteCount || 0}
           userVote={threadVote}
-          onUpvote={() => user && voteThread.mutate({ value: 1 })}
-          onDownvote={() => user && voteThread.mutate({ value: -1 })}
+          onUpvote={() => user && !isOwner && voteThread.mutate({ value: 1 })}
+          onDownvote={() => user && !isOwner && voteThread.mutate({ value: -1 })}
+          disabled={isOwner}
         />
 
         {/* Content */}
@@ -336,8 +337,9 @@ export default function ThreadDetailPage() {
               <VoteButtons
                 count={comment.voteCount || 0}
                 userVote={commentVotesData?.[comment._id] ?? null}
-                onUpvote={() => user && voteComment.mutate({ targetId: comment._id, value: 1 })}
-                onDownvote={() => user && voteComment.mutate({ targetId: comment._id, value: -1 })}
+                onUpvote={() => user && comment.author?._id !== user.id && voteComment.mutate({ targetId: comment._id, value: 1 })}
+                onDownvote={() => user && comment.author?._id !== user.id && voteComment.mutate({ targetId: comment._id, value: -1 })}
+                disabled={user && comment.author?._id === user.id}
                 className="mt-1"
               />
               <div className="flex-1 min-w-0">
