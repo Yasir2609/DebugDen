@@ -65,7 +65,11 @@ export default function SettingsPage() {
     },
     onSuccess: (updatedUser) => {
       updateUser(updatedUser)
+      // Invalidate all caches that display user/author data
       queryClient.invalidateQueries({ queryKey: ['userProfile'] })
+      queryClient.invalidateQueries({ queryKey: ['threads'] })
+      queryClient.invalidateQueries({ queryKey: ['thread'] })
+      queryClient.invalidateQueries({ queryKey: ['comments'] })
       setAvatarFile(null)
       toast.success('Settings saved!')
     },

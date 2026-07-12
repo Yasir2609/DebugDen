@@ -88,8 +88,12 @@ export default function Navbar() {
                   onClick={() => setMenuOpen(!menuOpen)}
                   className="flex items-center gap-2 rounded-md p-1.5 hover:bg-neutral transition-colors"
                 >
-                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-semibold">
-                    {user?.username?.[0]?.toUpperCase() || 'U'}
+                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-semibold overflow-hidden">
+                    {user?.avatar?.url ? (
+                      <img src={user.avatar.url} alt={user.username} className="h-full w-full object-cover" />
+                    ) : (
+                      user?.username?.[0]?.toUpperCase() || 'U'
+                    )}
                   </div>
                   <ChevronDown className="hidden sm:block h-4 w-4 text-text-muted" />
                 </button>

@@ -59,8 +59,12 @@ export default function ThreadCard({ thread }) {
 
         {/* Author + timestamp */}
         <div className="mt-2 flex items-center gap-2 text-xs text-text-muted">
-          <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-semibold">
-            {thread.author?.username?.[0]?.toUpperCase() || '?'}
+          <div className="h-5 w-5 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-semibold overflow-hidden">
+            {thread.author?.avatar?.url ? (
+              <img src={thread.author.avatar.url} alt={thread.author.username} className="h-full w-full object-cover" />
+            ) : (
+              thread.author?.username?.[0]?.toUpperCase() || '?'
+            )}
           </div>
           <span
             onClick={(e) => {

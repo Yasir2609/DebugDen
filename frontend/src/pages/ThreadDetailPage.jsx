@@ -301,8 +301,12 @@ export default function ThreadDetailPage() {
                   {thread?.author?.username}
                 </Link>
               </div>
-              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold">
-                {thread?.author?.username?.[0]?.toUpperCase() || '?'}
+              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold overflow-hidden">
+                {thread?.author?.avatar?.url ? (
+                  <img src={thread.author.avatar.url} alt={thread.author.username} className="h-full w-full object-cover" />
+                ) : (
+                  thread?.author?.username?.[0]?.toUpperCase() || '?'
+                )}
               </div>
             </div>
           </div>
@@ -356,8 +360,12 @@ export default function ThreadDetailPage() {
                 )}
 
                 <div className="mt-3 flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-full bg-tertiary flex items-center justify-center text-white text-[10px] font-semibold shrink-0">
-                    {comment.author?.username?.[0]?.toUpperCase() || '?'}
+                  <div className="h-6 w-6 rounded-full bg-tertiary flex items-center justify-center text-white text-[10px] font-semibold shrink-0 overflow-hidden">
+                    {comment.author?.avatar?.url ? (
+                      <img src={comment.author.avatar.url} alt={comment.author.username} className="h-full w-full object-cover" />
+                    ) : (
+                      comment.author?.username?.[0]?.toUpperCase() || '?'
+                    )}
                   </div>
                   <Link
                     to={`/u/${comment.author?.username}`}
@@ -408,8 +416,12 @@ export default function ThreadDetailPage() {
           <h2 className="text-lg font-bold text-text-primary mb-4">Your Answer</h2>
           <div className="rounded-xl border border-border bg-surface p-4">
             <div className="flex gap-3">
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-white text-xs font-semibold shrink-0 mt-1">
-                {user?.username?.[0]?.toUpperCase() || '?'}
+              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-white text-xs font-semibold shrink-0 mt-1 overflow-hidden">
+                {user?.avatar?.url ? (
+                  <img src={user.avatar.url} alt={user.username} className="h-full w-full object-cover" />
+                ) : (
+                  user?.username?.[0]?.toUpperCase() || '?'
+                )}
               </div>
               <div className="flex-1">
                 <textarea
