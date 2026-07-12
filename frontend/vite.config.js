@@ -15,7 +15,7 @@ export default defineConfig({
     // Proxy /api requests to the backend Express server
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: process.env.BACKEND_PROXY_TARGET || 'https://debugden-api.onrender.com',
         changeOrigin: true,
       },
     },
