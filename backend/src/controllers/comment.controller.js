@@ -26,12 +26,24 @@ export const createComment = catchAsync(async (req, res, next) => {
 });
 
 export const getComments = catchAsync(async (req, res, next) => {
+  // Fetch the thread to know which comment is accepted
+  const thread = await Thread.findById(req.params.id).select('acceptedComment');
+
   const comments = await Comment.find({
     thread: req.params.id,
     isDeleted: false,
   })
     .sort('-voteCount')
     .populate('author', 'username avatar');
+
+  // Pin accepted answer to the top, then sort the rest by vote count
+  if (thread?.acceptedComment) {
+    const acceptedId = thread.acceptedComment.toString();
+    const accepted = comments.filter((c) => c._id.toString() === acceptedId);
+    const rest = comments.filter((c) => c._id.toString() !== acceptedId);
+    comments.length = 0;
+    comments.push(...accepted, ...rest);
+  }
 
   res.status(200).json({
     success: true,

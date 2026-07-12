@@ -17,12 +17,9 @@ export function AuthProvider({ children }) {
     const stored = localStorage.getItem('accessToken')
     if (stored) {
       setAccessToken(stored)
-      // Verify token by fetching current user
-      // Note: api.js interceptor already attaches the Authorization header
       api.get('/auth/user')
         .then((res) => setUser(res.data.user))
         .catch(() => {
-          // Token invalid — clear it
           localStorage.removeItem('accessToken')
           setAccessToken(null)
         })

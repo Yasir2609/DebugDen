@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import { Calendar, MessageSquare, FileText, Shield } from 'lucide-react'
+import { Calendar, MessageSquare, FileText } from 'lucide-react'
 import api from '@/lib/api'
 import Spinner from '@/components/ui/Spinner'
 import EmptyState from '@/components/ui/EmptyState'
@@ -59,14 +59,6 @@ export default function UserProfilePage() {
     day: 'numeric',
   })
 
-  // Role badge config
-  const roleConfig = {
-    admin: { label: 'Admin', className: 'bg-error-light text-error border border-error/20' },
-    moderator: { label: 'Moderator', className: 'bg-warning-light text-warning border border-warning/20' },
-    developer: { label: 'Developer', className: 'bg-secondary-light text-secondary border border-secondary/20' },
-  }
-  const role = roleConfig[user.role]
-
   return (
     <div className="max-w-3xl">
       {/* Profile header */}
@@ -89,13 +81,6 @@ export default function UserProfilePage() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 flex-wrap">
               <h1 className="text-2xl font-bold text-text-primary">{user.username}</h1>
-              {/* Role badge */}
-              {role && (
-                <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium ${role.className}`}>
-                  <Shield className="h-3 w-3" />
-                  {role.label}
-                </span>
-              )}
             </div>
 
             {/* Stats row */}

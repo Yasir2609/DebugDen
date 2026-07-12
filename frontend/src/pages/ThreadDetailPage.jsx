@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Clock, Pencil, Trash2, MessageSquare, Send, CheckCircle2, Check } from 'lucide-react'
 import api from '@/lib/api'
 import { useAuth } from '@/contexts/AuthContext'
+import { timeAgo, calculateVoteDelta } from '@/lib/utils'
 import Spinner from '@/components/ui/Spinner'
 import VoteButtons from '@/components/shared/VoteButtons'
 import TagChip from '@/components/shared/TagChip'
@@ -78,18 +79,11 @@ export default function ThreadDetailPage() {
       const previousComments = queryClient.getQueryData(['comments', id])
       const previousVotes = queryClient.getQueryData(['userVotes', 'comment', id])
 
-      // Optimistically update the comment's voteCount (mirrors server 3-case logic)
+      // Optimistically update the comment's voteCount
       queryClient.setQueryData(['comments', id], (old) => {
         if (!old) return old
         const prevVote = previousVotes?.[targetId] ?? null
-        let delta
-        if (prevVote === null) {
-          delta = value           // Case A: new vote
-        } else if (prevVote === value) {
-          delta = -value          // Case B: retract same vote
-        } else {
-          delta = value * 2       // Case C: switch vote
-        }
+        const delta = calculateVoteDelta(prevVote, value)
         return old.map((c) =>
           c._id === targetId ? { ...c, voteCount: (c.voteCount || 0) + delta } : c,
         )
@@ -183,18 +177,11 @@ export default function ThreadDetailPage() {
       const previousThread = queryClient.getQueryData(['thread', id])
       const previousVotes = queryClient.getQueryData(['userVotes', 'thread', id])
 
-      // Optimistically update the thread's voteCount (mirrors server 3-case logic)
+      // Optimistically update the thread's voteCount
       queryClient.setQueryData(['thread', id], (old) => {
         if (!old) return old
         const prevVote = previousVotes?.[id] ?? null
-        let delta
-        if (prevVote === null) {
-          delta = value           // Case A: new vote
-        } else if (prevVote === value) {
-          delta = -value          // Case B: retract same vote
-        } else {
-          delta = value * 2       // Case C: switch vote
-        }
+        const delta = calculateVoteDelta(prevVote, value)
         return { ...old, voteCount: (old.voteCount || 0) + delta }
       })
 
@@ -224,19 +211,6 @@ export default function ThreadDetailPage() {
       queryClient.invalidateQueries({ queryKey: ['userVotes', 'thread', id] })
     },
   })
-
-  // Format relative time
-  const timeAgo = (date) => {
-    const seconds = Math.floor((Date.now() - new Date(date)) / 1000)
-    if (seconds < 60) return 'just now'
-    const minutes = Math.floor(seconds / 60)
-    if (minutes < 60) return `${minutes}m ago`
-    const hours = Math.floor(minutes / 60)
-    if (hours < 24) return `${hours}h ago`
-    const days = Math.floor(hours / 24)
-    if (days < 30) return `${days}d ago`
-    return new Date(date).toLocaleDateString()
-  }
 
   // Loading state
   if (threadLoading) {

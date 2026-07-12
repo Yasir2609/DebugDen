@@ -12,7 +12,7 @@ export default function Sidebar() {
   const isMyQuestionsActive = location.pathname === '/' && searchParams.has('author')
 
   return (
-    <aside className="hidden md:flex w-48 shrink-0 flex-col border-r border-border bg-surface py-4">
+    <aside className="hidden md:flex w-48 shrink-0 flex-col border-r border-border bg-surface py-4 sticky top-14 h-[calc(100vh-3.5rem)]">
       <nav className="flex flex-col gap-1 px-2">
         <NavLink
           to="/"

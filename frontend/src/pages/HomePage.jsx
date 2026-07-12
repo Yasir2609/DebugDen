@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { MessageSquare } from 'lucide-react'
-import { useQuery } from '@tanstack/react-query'
+import { useInfiniteQuery } from '@tanstack/react-query'
 import api from '@/lib/api'
 import { useAuth } from '@/contexts/AuthContext'
 import SkeletonCard from '@/components/ui/SkeletonCard'
@@ -11,7 +11,8 @@ import ThreadCard from '@/components/shared/ThreadCard'
 
 /**
  * Home page — displays the thread feed with sorting and tag filtering.
- * Fetches threads from GET /api/v1/threads with cursor pagination.
+ * Uses useInfiniteQuery for cursor-based pagination so all loaded pages
+ * stay in the React Query cache and survive navigation.
  */
 export default function HomePage() {
   const { user } = useAuth()
@@ -19,56 +20,31 @@ export default function HomePage() {
   const tagFilter = searchParams.get('tag')
   const authorFilter = searchParams.get('author')
   const [sort, setSort] = useState('all')
-  const [threads, setThreads] = useState([])
-  const [nextCursor, setNextCursor] = useState(null)
-  const [loadingMore, setLoadingMore] = useState(false)
 
-  // Fetch threads from API
-  const { data, isLoading, error, refetch } = useQuery({
+  const {
+    data,
+    isLoading,
+    error,
+    refetch,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ['threads', sort, tagFilter, authorFilter],
-    queryFn: async () => {
+    queryFn: async ({ pageParam }) => {
       const params = { sort, limit: 10 }
+      if (pageParam) params.cursor = pageParam
       if (tagFilter) params.tag = tagFilter
       if (authorFilter) params.author = authorFilter
       const res = await api.get('/threads', { params })
       return res.data
     },
+    initialPageParam: null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? null,
   })
 
-  // Reset cursor whenever sort or filters change so Load More uses the correct starting point
-  useEffect(() => {
-    setNextCursor(null)
-  }, [sort, tagFilter, authorFilter])
-
-  // Update local state when data changes
-  useEffect(() => {
-    if (data) {
-      setThreads(data.threads || [])
-      setNextCursor(data.nextCursor || null)
-    }
-  }, [data])
-
-  // Load more threads (cursor pagination)
-  const loadMore = async () => {
-    if (!nextCursor || loadingMore) return
-    setLoadingMore(true)
-    try {
-      const params = { sort, limit: 10, cursor: nextCursor }
-      if (tagFilter) params.tag = tagFilter
-      if (authorFilter) params.author = authorFilter
-      const res = await api.get('/threads', { params })
-      setThreads((prev) => {
-        const existingIds = new Set(prev.map((t) => t._id))
-        const newThreads = (res.data.threads || []).filter((t) => !existingIds.has(t._id))
-        return [...prev, ...newThreads]
-      })
-      setNextCursor(res.data.nextCursor || null)
-    } catch {
-      // Silently fail — user can retry
-    } finally {
-      setLoadingMore(false)
-    }
-  }
+  // Flatten all pages into a single threads array
+  const threads = data?.pages.flatMap((page) => page.threads) ?? []
 
   return (
     <div>
@@ -175,15 +151,15 @@ export default function HomePage() {
           ))}
 
           {/* Load more button */}
-          {nextCursor && (
+          {hasNextPage && (
             <div className="flex justify-center py-4">
               <button
-                onClick={loadMore}
-                disabled={loadingMore}
+                onClick={() => fetchNextPage()}
+                disabled={isFetchingNextPage}
                 className="rounded-lg border border-border px-6 py-2.5 text-sm font-medium text-text-secondary
                   hover:bg-neutral transition-colors disabled:opacity-50"
               >
-                {loadingMore ? 'Loading...' : 'Load More'}
+                {isFetchingNextPage ? 'Loading...' : 'Load More'}
               </button>
             </div>
           )}

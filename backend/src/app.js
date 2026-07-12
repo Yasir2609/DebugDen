@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 
+
 // Import security middleware setup
 import securityMiddleware from './middlewares/security.js';
 import errorHandler from './middlewares/errorHandler.js';
@@ -13,6 +14,7 @@ import threadRoutes from './routes/thread.routes.js';
 import commentRoutes from './routes/comment.routes.js';
 import voteRoutes from './routes/vote.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
+
 
 const app = express();
 
@@ -36,6 +38,7 @@ app.use('/api/v1/threads', threadRoutes);
 app.use('/api/v1/threads/:id/comments', commentRoutes);
 app.use('/api/v1/votes', voteRoutes);
 app.use('/api/v1/uploads', uploadRoutes);
+
 
 // Health check endpoint
 app.get('/api/v1/health', (req, res) => {

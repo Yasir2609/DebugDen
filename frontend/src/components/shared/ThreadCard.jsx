@@ -1,5 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { CheckCircle2 } from 'lucide-react'
 import TagChip from '@/components/shared/TagChip'
+import { timeAgo } from '@/lib/utils'
 
 
 /**
@@ -8,17 +10,6 @@ import TagChip from '@/components/shared/TagChip'
  */
 export default function ThreadCard({ thread }) {
   const navigate = useNavigate()
-  const timeAgo = (date) => {
-    const seconds = Math.floor((Date.now() - new Date(date)) / 1000)
-    if (seconds < 60) return 'just now'
-    const minutes = Math.floor(seconds / 60)
-    if (minutes < 60) return `${minutes}m ago`
-    const hours = Math.floor(minutes / 60)
-    if (hours < 24) return `${hours}h ago`
-    const days = Math.floor(hours / 24)
-    if (days < 30) return `${days}d ago`
-    return new Date(date).toLocaleDateString()
-  }
 
   return (
     <Link
@@ -33,11 +24,16 @@ export default function ThreadCard({ thread }) {
         <div className="text-xs text-text-muted">votes</div>
         <div
           className={`rounded border px-2 py-0.5 text-xs font-semibold ${
-            (thread.commentCount || 0) > 0
-              ? 'border-secondary bg-secondary-light text-secondary'
-              : 'border-border text-text-muted'
+            thread.acceptedComment
+              ? 'border-success bg-success-light text-success'
+              : (thread.commentCount || 0) > 0
+                ? 'border-secondary bg-secondary-light text-secondary'
+                : 'border-border text-text-muted'
           }`}
         >
+          {thread.acceptedComment ? (
+            <CheckCircle2 className="inline h-3 w-3 mr-0.5 -mt-0.5" />
+          ) : null}
           {thread.commentCount || 0}
         </div>
         <div className="text-xs text-text-muted">answers</div>
