@@ -73,9 +73,7 @@ export const login = catchAsync(async (req, res, next) => {
     return next(new AppError('Your account has been deactivated', 403));
   }
 
-  // Re-fetch user to ensure all fields (including refreshTokens) are available for save
-  const fullUser = await User.findById(user._id);
-  await sendTokens(fullUser, 200, res);
+  await sendTokens(user, 200, res);
 });
 
 export const refresh = catchAsync(async (req, res, next) => {

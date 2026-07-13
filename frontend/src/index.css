@@ -4,52 +4,50 @@
 /* Note: Inter font loaded via <link> tag in index.html for correct @import order */
 
 /*
- * DebugDen Design Palette (from design/des.webp)
- * Primary:   #E29578 — warm coral/salmon
- * Secondary: #006D77 — deep teal
- * Tertiary:  #83C5BE — light teal/mint
- * Neutral:   #EDF6F9 — very light blue-gray
+ * DebugDen Design Palette — Purple/Indigo Theme
+ * Primary brand: #6C5CE7 — vibrant purple/indigo
+ * Accent:        #A29BFE — soft lavender
+ * Background:    #F8F9FA — near-white page background
+ * Surface:       #FFFFFF — card / navbar background
  */
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand colors from design palette */
-  --color-primary: #E29578;
-  --color-primary-hover: #d4836a;
-  --color-primary-light: #f5ded4;
+  /* Primary brand — purple/indigo */
+  --color-primary: #6C5CE7;
+  --color-primary-hover: #5a4bd1;
+  --color-primary-light: #EDE9FE;
 
-  --color-secondary: #006D77;
-  --color-secondary-hover: #005a63;
-  --color-secondary-light: #e0f3f5;
+  /* Tertiary — soft lavender accent */
+  --color-tertiary: #A29BFE;
+  --color-tertiary-hover: #8B84F5;
+  --color-tertiary-light: #F5F3FF;
 
-  --color-tertiary: #83C5BE;
-  --color-tertiary-hover: #6fb5ac;
-  --color-tertiary-light: #e8f7f6;
-
-  --color-neutral: #EDF6F9;
-  --color-neutral-dark: #dde9ed;
+  /* Neutral tones */
+  --color-neutral: #F1F5F9;
+  --color-neutral-dark: #E2E8F0;
 
   /* Semantic colors */
-  --color-success: #22c55e;
-  --color-success-light: #dcfce7;
-  --color-error: #ef4444;
-  --color-error-light: #fef2f2;
-  --color-warning: #f59e0b;
-  --color-warning-light: #fef3c7;
+  --color-success: #10B981;
+  --color-success-light: #D1FAE5;
+  --color-error: #EF4444;
+  --color-error-light: #FEF2F2;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
 
   /* Surface colors */
-  --color-background: #f8fafc;
-  --color-surface: #ffffff;
-  --color-surface-hover: #f1f5f9;
+  --color-background: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-surface-hover: #F5F3FF;
 
   /* Text colors */
-  --color-text-primary: #1e293b;
-  --color-text-secondary: #64748b;
-  --color-text-muted: #94a3b8;
+  --color-text-primary: #1E1B4B;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #9CA3AF;
 
-  /* Border */
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
+  /* Borders */
+  --color-border: #E5E7EB;
+  --color-border-light: #F3F4F6;
 }
 
 /* Base styles */
@@ -69,7 +67,7 @@ body {
 
 /* Scrollbar styling for a polished feel */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -82,5 +80,5 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-text-muted);
+  background: var(--color-tertiary);
 }

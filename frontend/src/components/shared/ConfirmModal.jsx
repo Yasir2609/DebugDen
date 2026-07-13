@@ -34,7 +34,7 @@ export default function ConfirmModal({
     <div
       ref={dialogRef}
       onClick={handleBackdropClick}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-modal-title"
@@ -74,7 +74,7 @@ export default function ConfirmModal({
               'disabled:opacity-50 disabled:cursor-not-allowed',
               danger
                 ? 'bg-error hover:bg-error/90'
-                : 'bg-secondary hover:bg-secondary-hover',
+                : 'bg-primary hover:bg-primary-hover',
             )}
           >
             {loading ? 'Processing...' : confirmText}

@@ -82,7 +82,7 @@ export default function AskQuestionPage() {
             placeholder="e.g., How to implement JWT refresh token rotation?"
             required
             className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text-primary
-              placeholder:text-text-muted focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary
+              placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
               transition-colors"
           />
           <p className="mt-1 text-xs text-text-muted">
@@ -103,7 +103,7 @@ export default function AskQuestionPage() {
             placeholder="Describe your problem in detail. Include what you've tried and what you expect."
             required
             className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text-primary
-              placeholder:text-text-muted focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary
+              placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
               transition-colors resize-y"
           />
           <p className="mt-1 text-xs text-text-muted">
@@ -120,7 +120,7 @@ export default function AskQuestionPage() {
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-tertiary-light px-2.5 py-0.5 text-xs font-medium text-secondary"
+                className="inline-flex items-center gap-1 rounded-full bg-primary-light px-2.5 py-0.5 text-xs font-medium text-primary"
               >
                 {tag}
                 <button
@@ -154,8 +154,8 @@ export default function AskQuestionPage() {
           <button
             type="submit"
             disabled={createThread.isPending || !title.trim() || !body.trim()}
-            className="flex items-center gap-2 rounded-lg bg-secondary px-6 py-2.5 text-sm font-medium text-white
-              hover:bg-secondary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 rounded-lg bg-primary px-6 py-2.5 text-sm font-medium text-white
+              hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {createThread.isPending && <Spinner size="sm" className="text-white" />}
             {createThread.isPending ? 'Posting...' : 'Post Question'}

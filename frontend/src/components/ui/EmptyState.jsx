@@ -9,7 +9,7 @@ export default function EmptyState({ icon: Icon, title, description, action, cla
       )}
     >
       {Icon && (
-        <div className="mb-4 rounded-full bg-neutral p-4 text-text-muted">
+        <div className="mb-4 rounded-full bg-primary-light p-4 text-primary">
           <Icon className="h-8 w-8" />
         </div>
       )}

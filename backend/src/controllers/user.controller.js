@@ -26,7 +26,10 @@ export const updateUser = catchAsync(async (req, res, next) => {
   const updateData = {};
 
   if (bio !== undefined) updateData.bio = bio;
-  if (avatar) updateData.avatar = avatar;
+  // Handle avatar: null/empty clears it, object sets it
+  if (avatar !== undefined) {
+    updateData.avatar = avatar || { url: '', publicId: '' };
+  }
 
   const user = await User.findByIdAndUpdate(req.user._id, updateData, {
     new: true,

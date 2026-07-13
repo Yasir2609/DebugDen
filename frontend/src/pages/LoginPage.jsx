@@ -39,11 +39,11 @@ export default function LoginPage() {
     <AuthLayout>
       {/* Logo + title */}
       <div className="mb-6 text-center">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-secondary text-white font-bold text-lg">
+        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white font-bold text-lg">
           D
         </div>
         <h1 className="text-xl font-bold text-text-primary">
-          Welcome back to Debug<span className="text-secondary">Den</span>
+          Welcome back to Debug<span className="text-primary">Den</span>
         </h1>
         <p className="mt-1 text-sm text-text-secondary">
           Sign in to your account
@@ -65,7 +65,7 @@ export default function LoginPage() {
             placeholder="you@example.com"
             required
             className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-text-primary
-              placeholder:text-text-muted focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary
+              placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
               transition-colors"
           />
           <FormError message={errors.email} />
@@ -85,7 +85,7 @@ export default function LoginPage() {
               placeholder="••••••••"
               required
               className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 pr-10 text-sm text-text-primary
-                placeholder:text-text-muted focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary
+                placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
                 transition-colors"
             />
             <button
@@ -104,8 +104,8 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-lg bg-secondary px-4 py-2.5 text-sm font-medium text-white
-            hover:bg-secondary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-white
+            hover:bg-primary-hover transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading && <Spinner size="sm" className="text-white" />}
           {loading ? 'Signing in...' : 'Login'}
@@ -115,7 +115,7 @@ export default function LoginPage() {
       {/* Register link */}
       <p className="mt-4 text-center text-sm text-text-secondary">
         Don&apos;t have an account?{' '}
-        <Link to="/register" className="font-medium text-secondary hover:underline">
+        <Link to="/register" className="font-medium text-primary hover:underline">
           Register
         </Link>
       </p>

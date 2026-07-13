@@ -110,12 +110,12 @@ export default function UserProfilePage() {
       {/* Stats cards */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <div className="rounded-xl border border-border bg-surface p-4 text-center">
-          <FileText className="mx-auto h-5 w-5 text-secondary" />
+          <FileText className="mx-auto h-5 w-5 text-primary" />
           <p className="mt-2 text-2xl font-bold text-text-primary">{user.threadCount || 0}</p>
           <p className="text-xs text-text-muted">Questions</p>
         </div>
         <div className="rounded-xl border border-border bg-surface p-4 text-center">
-          <MessageSquare className="mx-auto h-5 w-5 text-tertiary" />
+          <MessageSquare className="mx-auto h-5 w-5 text-primary-light" />
           <p className="mt-2 text-2xl font-bold text-text-primary">{user.commentCount || 0}</p>
           <p className="text-xs text-text-muted">Answers</p>
         </div>

@@ -15,8 +15,8 @@ export default function VoteButtons({ count = 0, userVote = null, onUpvote, onDo
           disabled
             ? 'text-text-muted/40 cursor-not-allowed'
             : isUpvoted
-              ? 'bg-secondary-light text-secondary'
-              : 'text-text-muted hover:bg-tertiary-light hover:text-secondary',
+              ? 'bg-primary-light text-primary'
+              : 'text-text-muted hover:bg-primary-light hover:text-primary',
         )}
         aria-label="Upvote"
         title={disabled ? 'You cannot vote on your own content' : 'Upvote'}

@@ -12,7 +12,7 @@ export default function Spinner({ size = 'md', className }) {
     <div
       className={cn(
         'animate-spin rounded-full border-current border-t-transparent',
-        'text-secondary',
+        'text-primary',
         sizeClasses[size],
         className,
       )}

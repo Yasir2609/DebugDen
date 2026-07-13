@@ -280,7 +280,7 @@ export default function ThreadDetailPage() {
           <div className="mt-4 flex items-center justify-between">
             {isOwner && (
               <div className="flex items-center gap-2">
-                <button className="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-text-muted hover:bg-neutral hover:text-secondary transition-colors">
+                <button className="flex items-center gap-1 rounded-md px-2 py-1 text-xs text-text-muted hover:bg-neutral hover:text-primary transition-colors">
                   <Pencil className="h-3.5 w-3.5" /> Edit
                 </button>
                 <button
@@ -296,7 +296,7 @@ export default function ThreadDetailPage() {
               <div className="text-right">
                 <Link
                   to={`/u/${thread?.author?.username}`}
-                  className="font-medium text-secondary hover:underline"
+                  className="font-medium text-primary hover:underline"
                 >
                   {thread?.author?.username}
                 </Link>
@@ -360,7 +360,7 @@ export default function ThreadDetailPage() {
                 )}
 
                 <div className="mt-3 flex items-center gap-2">
-                  <div className="h-6 w-6 rounded-full bg-tertiary flex items-center justify-center text-white text-[10px] font-semibold shrink-0 overflow-hidden">
+                  <div className="h-6 w-6 rounded-full bg-primary flex items-center justify-center text-white text-[10px] font-semibold shrink-0 overflow-hidden">
                     {comment.author?.avatar?.url ? (
                       <img src={comment.author.avatar.url} alt={comment.author.username} className="h-full w-full object-cover" />
                     ) : (
@@ -369,7 +369,7 @@ export default function ThreadDetailPage() {
                   </div>
                   <Link
                     to={`/u/${comment.author?.username}`}
-                    className="text-xs font-medium text-secondary hover:underline"
+                    className="text-xs font-medium text-primary hover:underline"
                   >
                     {comment.author?.username}
                   </Link>
@@ -416,7 +416,7 @@ export default function ThreadDetailPage() {
           <h2 className="text-lg font-bold text-text-primary mb-4">Your Answer</h2>
           <div className="rounded-xl border border-border bg-surface p-4">
             <div className="flex gap-3">
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-white text-xs font-semibold shrink-0 mt-1 overflow-hidden">
+              <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-white text-xs font-semibold shrink-0 mt-1 overflow-hidden">
                 {user?.avatar?.url ? (
                   <img src={user.avatar.url} alt={user.username} className="h-full w-full object-cover" />
                 ) : (
@@ -430,14 +430,14 @@ export default function ThreadDetailPage() {
                   onChange={(e) => setAnswerBody(e.target.value)}
                   placeholder="Write your answer here..."
                   className="w-full rounded-lg border border-border bg-neutral px-3 py-2.5 text-sm text-text-primary
-                    placeholder:text-text-muted focus:border-secondary focus:outline-none focus:ring-1 focus:ring-secondary
+                    placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary
                     transition-colors resize-y"
                 />
                 <div className="mt-3 flex justify-end">
                   <button
                     onClick={() => postAnswer.mutate(answerBody)}
                     disabled={!answerBody.trim() || postAnswer.isPending}
-                    className="flex items-center gap-2 rounded-lg bg-secondary px-4 py-2 text-sm font-medium text-white hover:bg-secondary-hover
+                    className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary-hover
                       transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="h-4 w-4" />
@@ -453,7 +453,7 @@ export default function ThreadDetailPage() {
       {!user && (
         <div className="mt-6 rounded-xl border border-border bg-neutral p-4 text-center">
           <p className="text-sm text-text-secondary">
-            Please <a href="/login" className="font-medium text-secondary hover:underline">login</a> to post an answer.
+            Please <a href="/login" className="font-medium text-primary hover:underline">login</a> to post an answer.
           </p>
         </div>
       )}

@@ -14,6 +14,7 @@ import threadRoutes from './routes/thread.routes.js';
 import commentRoutes from './routes/comment.routes.js';
 import voteRoutes from './routes/vote.routes.js';
 import uploadRoutes from './routes/upload.routes.js';
+import statsRoutes from './routes/stats.routes.js';
 
 
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/v1/threads', threadRoutes);
 app.use('/api/v1/threads/:id/comments', commentRoutes);
 app.use('/api/v1/votes', voteRoutes);
 app.use('/api/v1/uploads', uploadRoutes);
+app.use('/api/v1/stats', statsRoutes);
 
 
 // Health check endpoint

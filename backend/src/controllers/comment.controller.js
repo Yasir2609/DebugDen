@@ -37,18 +37,18 @@ export const getComments = catchAsync(async (req, res, next) => {
     .populate('author', 'username avatar');
 
   // Pin accepted answer to the top, then sort the rest by vote count
+  let sorted = comments;
   if (thread?.acceptedComment) {
     const acceptedId = thread.acceptedComment.toString();
     const accepted = comments.filter((c) => c._id.toString() === acceptedId);
     const rest = comments.filter((c) => c._id.toString() !== acceptedId);
-    comments.length = 0;
-    comments.push(...accepted, ...rest);
+    sorted = [...accepted, ...rest];
   }
 
   res.status(200).json({
     success: true,
-    results: comments.length,
-    comments,
+    results: sorted.length,
+    comments: sorted,
   });
 });
 
