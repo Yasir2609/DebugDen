@@ -11,7 +11,7 @@ export default function AuthLayout({ children, className }) {
 
       <div
         className={cn(
-          'relative w-full max-w-md rounded-2xl bg-surface p-8 shadow-xl border border-border',
+          'relative w-full max-w-md rounded-2xl bg-surface p-8 shadow-xl border border-border animate-page-enter',
           className,
         )}
       >

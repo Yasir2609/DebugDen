@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
 import { MessageSquare, Users, FileText } from 'lucide-react'
 import api from '@/lib/api'
+import TagChip from '@/components/shared/TagChip'
 
 /**
  * Right sidebar — shown on lg+ breakpoints alongside the main content area.
@@ -40,6 +41,18 @@ export default function RightSidebar() {
 
       </div>
 
+      {/* Top Tags */}
+      {stats?.topTags && stats.topTags.length > 0 && (
+        <div className="rounded-xl border border-border bg-surface p-5">
+          <h2 className="text-base font-semibold text-text-primary mb-3">Top Tags</h2>
+          <div className="flex flex-wrap gap-2">
+            {stats.topTags.map((tag) => (
+              <TagChip key={tag.name} tag={tag.name} />
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Community Stats */}
       <div className="rounded-xl border border-border bg-surface p-5">
         <h2 className="text-base font-semibold text-text-primary mb-3">Community Stats</h2>
@@ -69,7 +82,7 @@ export default function RightSidebar() {
 /** Individual stat row inside the Community Stats card */
 function StatRow({ icon: Icon, label, value }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between rounded-md px-2 -mx-2 py-1.5 transition-colors hover:bg-surface-hover">
       <div className="flex items-center gap-2 text-sm text-text-secondary">
         <Icon className="h-4 w-4 text-text-muted shrink-0" />
         {label}

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
-import { MessageSquare } from 'lucide-react'
+import { useSearchParams, useNavigate } from 'react-router-dom'
+import { MessageSquare, X } from 'lucide-react'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import api from '@/lib/api'
 import SkeletonCard from '@/components/ui/SkeletonCard'
@@ -14,6 +14,7 @@ import ThreadCard from '@/components/shared/ThreadCard'
  * stay in the React Query cache and survive navigation.
  */
 export default function HomePage() {
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const tagFilter = searchParams.get('tag')
   const authorFilter = searchParams.get('author')
@@ -61,7 +62,17 @@ export default function HomePage() {
             {authorFilter ? (
               'Questions you have asked'
             ) : tagFilter ? (
-              <>Filtered by tag: <TagChip tag={tagFilter} /></>
+              <span className="inline-flex items-center gap-1.5">
+                <span className="text-text-secondary">Filtered by tag:</span>
+                <TagChip tag={tagFilter} />
+                <button
+                  onClick={() => navigate('/')}
+                  className="ml-0.5 inline-flex items-center rounded-full p-0.5 text-text-muted hover:bg-error-light hover:text-error transition-colors"
+                  title="Clear filter"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </span>
             ) : (
               'Browse questions from the DebugDen community'
             )}

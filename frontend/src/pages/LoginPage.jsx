@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Eye, EyeOff } from 'lucide-react'
+import { Link, useLocation } from 'react-router-dom'
+import { Eye, EyeOff, Lock } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
 import AuthLayout from '@/components/layout/AuthLayout'
 import FormError from '@/components/ui/FormError'
@@ -10,9 +10,13 @@ import toast from 'react-hot-toast'
 /**
  * Login page — standalone auth form inside AuthLayout.
  * Calls authApi.login, redirects on success.
+ * Shows a banner if redirected from a protected page.
  */
 export default function LoginPage() {
   const { login } = useAuth()
+  const location = useLocation()
+  const redirectedFrom = location.state?.from
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({})
@@ -37,6 +41,14 @@ export default function LoginPage() {
 
   return (
     <AuthLayout>
+      {/* Redirect banner */}
+      {redirectedFrom && (
+        <div className="mb-4 flex items-center gap-2.5 rounded-lg border border-primary/20 bg-primary-light p-3 text-sm text-primary animate-page-enter">
+          <Lock className="h-4 w-4 shrink-0" />
+          <span>Please log in to access <span className="font-semibold">{redirectedFrom}</span></span>
+        </div>
+      )}
+
       {/* Logo + title */}
       <div className="mb-6 text-center">
         <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-white font-bold text-lg">
